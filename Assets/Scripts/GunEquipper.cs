@@ -35,9 +35,13 @@ public class GunEquipper : MonoBehaviour
         {
             loadWeapon(pistol);
             activeWeaponType = Constants.Pistol;
+        }
+        else if (Input.GetKeyDown("2"))
+        {
             loadWeapon(assaultRifle);
             activeWeaponType = Constants.AssaultRifle;
         }
+
         else if (Input.GetKeyDown("3"))
         {
             loadWeapon(shotgun);
