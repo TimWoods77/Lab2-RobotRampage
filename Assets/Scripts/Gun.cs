@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
     }
     protected void Fire()
     {
-
+        GetComponentInChildren<Animator>().Play("Fire");// fetches animator controller and tells it to play the fire animation 
     }
 }
 
