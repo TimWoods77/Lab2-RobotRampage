@@ -12,6 +12,7 @@ public class Robot : MonoBehaviour
     public float fireRate;// how fast gun can fire
     public Transform missileFireSpot;
     UnityEngine.AI.NavMeshAgent agent;// reference to navmesh agent component
+    public Animator robot;
 
     private Transform player;// what robot will track
     private float timeLastFired;
@@ -49,6 +50,6 @@ public class Robot : MonoBehaviour
     }
     private void fire()
     {
-        Debug.Log("Fire");
+        robot.Play("Fire");// plays fire animation when robot fires the missile
     }
 }
