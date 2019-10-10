@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Robot : MonoBehaviour
 {
+    [SerializeField]
+    GameObject missileprefab;// missile prefab 
+
     [SerializeField]// allows us to access robots from the inspector but not from scripts
     private string robotType;// type of robot
 
@@ -50,6 +53,9 @@ public class Robot : MonoBehaviour
     }
     private void fire()
     {
-        robot.Play("Fire");// plays fire animation when robot fires the missile
+        GameObject missile = Instantiate(missileprefab);// makes a new missileprefab and sets it's position and rotation to the robot's firing spot.
+        missile.transform.position = missileFireSpot.transform.position;
+        missile.transform.rotation = missileFireSpot.transform.rotation;
+        robot.Play("Fire");
     }
 }
