@@ -5,6 +5,13 @@ using UnityEngine;
 public class Robot : MonoBehaviour
 {
     [SerializeField]
+    private AudioClip deathSound;
+    [SerializeField]
+    private AudioClip fireSound;
+    [SerializeField]
+    private AudioClip weakHitSound;
+
+    [SerializeField]
     GameObject missileprefab;// missile prefab 
 
     [SerializeField]// allows us to access robots from the inspector but not from scripts
@@ -57,6 +64,7 @@ public class Robot : MonoBehaviour
         missile.transform.position = missileFireSpot.transform.position;
         missile.transform.rotation = missileFireSpot.transform.rotation;
         robot.Play("Fire");
+        GetComponent<AudioSource>().PlayOneShot(fireSound);// plays missile firing sounds
     }
 
     // 1 
@@ -66,14 +74,21 @@ public class Robot : MonoBehaviour
         {
             return;
         } 
-        health -= amount; 
+        health -= amount;
         if (health <= 0)
         {
             isDead = true;
             robot.Play("Die");
             StartCoroutine("DestroyRobot");
+            GetComponent<AudioSource>().PlayOneShot(deathSound);
+        }
+
+        else
+        {
+            GetComponent<AudioSource>().PlayOneShot(weakHitSound);
         }
     }
+    
     // 2
     IEnumerator DestroyRobot()
     {
