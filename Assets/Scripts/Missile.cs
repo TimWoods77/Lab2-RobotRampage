@@ -23,4 +23,14 @@ public class Missile : MonoBehaviour
     {
         yield return new WaitForSeconds(10);   Destroy(gameObject);// once the 10 seconds have passed it will continue after the yeild statement if the missile doesn't hit the player it will self-destruct.
     }
+
+    void OnCollisionEnter(Collision collider)// checks to see if missile hits player
+    {
+        if (collider.gameObject.GetComponent<Player>() != null && collider.gameObject.tag == "Player")//checks to see if play is still active
+        {
+            collider.gameObject.GetComponent<Player>().TakeDamage(damage);// if still alive tells player script to take damage
+        }
+        Destroy(gameObject);// destroys missiles
+    }
+
 }
