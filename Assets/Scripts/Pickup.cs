@@ -10,6 +10,7 @@ public class Pickup : MonoBehaviour
     {
         if (collider.gameObject.GetComponent<Player>() != null && collider.gameObject.tag == "Player")
         {
+            GetComponentInParent<PickupSpawn>().PickupWasPickedUp();// restarts spawn timer for pickups after player interacts with them
             collider.gameObject.GetComponent<Player>().PickUpItem(type); Destroy(gameObject);
         }
     }
