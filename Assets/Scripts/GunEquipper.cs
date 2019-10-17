@@ -13,6 +13,9 @@ public class GunEquipper : MonoBehaviour
 
     GameObject activeGun;
 
+    [SerializeField]
+    Ammo ammo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +30,7 @@ public class GunEquipper : MonoBehaviour
         shotgun.SetActive(false);
         weapon.SetActive(true);
         activeGun = weapon;
+        gameUI.SetAmmoText(ammo.GetAmmo(activeGun.tag));// updates ammo cost when guns are switched
     }
 
     // Update is called once per frame
