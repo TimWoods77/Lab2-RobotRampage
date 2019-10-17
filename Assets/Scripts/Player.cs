@@ -30,14 +30,15 @@ public class Player : MonoBehaviour
             if (effectiveArmor > 0)
             {
                 armor = effectiveArmor / 2;
+                gameUI.SetArmorText(armor);// updates the armor as it takes damage
                 return;
             }
-
             armor = 0;
+            gameUI.SetArmorText(armor);
         }
 
         health -= healthDamage;
-        Debug.Log("Health is " + health);
+        gameUI.SetHealthText(health);// updates the health while it changes
 
         if (health <= 0)// checks to see if player health reached zero if so game over.
         {
@@ -60,27 +61,49 @@ public class Player : MonoBehaviour
         {
             health = 200;
         }
+        gameUI.SetPickUpText("Health picked up + 50 Health");// shows pickup text alert
+        gameUI.SetHealthText(health);// updates health UI
     }
 
     private void pickupArmor()
     {
         armor += 15;
+        gameUI.SetPickUpText("Armor picked up + 15 armor");// shows the pickup text alert
+        gameUI.SetArmorText(armor);// updates armor UI
     }
 
     // 2 
     private void pickupAssaultRifleAmmo()
     {
         ammo.AddAmmo(Constants.AssaultRifle, 50);
+        gameUI.SetPickUpText("Assault rifle ammo picked up + 50 ammo");// notifies player of what ammunition was picked up
+
+        if (gunEquipper.GetActiveWeapon().tag == Constants.AssaultRifle)// checks to see if active gun was the assault rifle before setting ammo count
+        {
+            gameUI.SetAmmoText(ammo.GetAmmo(Constants.AssaultRifle));
+        }
     }
 
     private void pickupPisolAmmo()
     {
         ammo.AddAmmo(Constants.Pistol, 20);
+        gameUI.SetPickUpText("Pistol ammo picked up + 20 ammo");
+
+        if (gunEquipper.GetActiveWeapon().tag == Constants.Pistol)
+        {
+            gameUI.SetAmmoText(ammo.GetAmmo(Constants.Pistol));
+        }
     }
 
     private void pickupShotgunAmmo()
     {
         ammo.AddAmmo(Constants.Shotgun, 10);
+        gameUI.SetPickUpText("Shotgun ammo picked up + 10 ammo");
+
+        if (gunEquipper.GetActiveWeapon().tag == Constants.Shotgun)
+        {
+            gameUI.SetAmmoText(ammo.GetAmmo(Constants.Shotgun));
+        }
     }
 
     public void PickUpItem(int pickupType)// takes a int that represents the type of item being picked up
