@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
+    public GameObject gameOverPanel;
     public GameUI gameUI;
     public GameObject player;
     public int score;
@@ -13,6 +16,45 @@ public class Game : MonoBehaviour
     [SerializeField]
     RobotSpawn[] spawns;// array of teleporters that spawn robots each wave
     public int enemiesLeft;// tracks how many robots are still alive
+
+    // 1
+    public void OnGUI()
+    {
+        if (isGameOver && Cursor.visible == false)// frees up the mouse curser to allow player to make selection after gameover
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
+    // 2 
+    public void GameOver()// called when game over
+    {
+        isGameOver = true;
+        Time.timeScale = 0;// sets time scale to 0
+        player.GetComponent<FirstPersonController>().enabled = false;// stops robots from moving
+        player.GetComponent<CharacterController>().enabled = false;// disables controls
+        gameOverPanel.SetActive(true);// displays game over panel
+    }
+
+    // 3
+    public void RestartGame()// reloads game if user selects to restart
+    {
+        SceneManager.LoadScene(Constants.SceneBattle);
+        gameOverPanel.SetActive(true);
+    }
+
+    // 4 
+    public void Exit()// exits game if user selects exit
+    {
+        Application.Quit();
+    }
+
+    // 5 
+    public void MainMenu()// Goes to the main menu if user selects main menu
+    {
+        SceneManager.LoadScene(Constants.SceneMenu);
+    }
 
     // 1
     void Start()
