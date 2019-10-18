@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public GameUI gameUI;
+    public GameObject player;
+    public int score;
+    public int waveCountdown;
+    public bool isGameOver;
     private static Game singleton;
     [SerializeField]
     RobotSpawn[] spawns;// array of teleporters that spawn robots each wave
