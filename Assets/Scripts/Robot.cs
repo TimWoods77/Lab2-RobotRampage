@@ -80,6 +80,7 @@ public class Robot : MonoBehaviour
             isDead = true;
             robot.Play("Die");
             StartCoroutine("DestroyRobot");
+            Game.RemoveEnemy();// reduces enemy count by 1 and updates UI
             GetComponent<AudioSource>().PlayOneShot(deathSound);
         }
 
