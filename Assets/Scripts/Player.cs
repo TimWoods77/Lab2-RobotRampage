@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Game game;// reference to the game script
+    public AudioClip playerDead;// reference to the audioclip when player dies
     public int health;// players remaining health
     public int armor;// extra 50% armor
     public GameUI gameUI;// references gameUI script
-    private GunEquipper gunEquipper;// references gunEquipper script
-    private Ammo ammo;// references ammo class
+    public GunEquipper gunEquipper;// references gunEquipper script
+    public Ammo ammo;// references ammo class
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +44,8 @@ public class Player : MonoBehaviour
 
         if (health <= 0)// checks to see if player health reached zero if so game over.
         {
-            Debug.Log("GameOver");
+            GetComponent<AudioSource>().PlayOneShot(playerDead);// plays the playerDead audio
+            game.GameOver();// calls game over on the game script
         }
     }
 
